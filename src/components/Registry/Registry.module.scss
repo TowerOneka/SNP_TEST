@@ -1,0 +1,35 @@
+.registryContainer {
+  max-width: 500px;
+  margin: auto;
+}
+.registryForm {
+  background-color: #fff;
+  padding: 50px;
+  margin-top: 50px;
+  display: flex;
+
+  flex-direction: column;
+  justify-content: center;
+}
+.registryButton {
+  margin: auto;
+  margin-top: 25px;
+  background-color: #141414;
+  color: #fff;
+  border: 1px solid rgba(54, 54, 54, 0.6);
+  font-weight: 600;
+  position: relative;
+  outline: none;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  height: 45px;
+  width: 130px;
+  opacity: 1;
+}
+.adminCheckbox {
+  display: flex;
+  align-items: center;
+}

@@ -1,0 +1,43 @@
+.container {
+  background-color: #fff;
+  padding-bottom: 10px;
+}
+
+.testButtons {
+  display: flex;
+  justify-content: space-around;
+  margin: 25px 0;
+}
+.buttonSave {
+  background-color: #141414;
+  color: #fff;
+  border: 1px solid rgba(54, 54, 54, 0.6);
+  font-weight: 600;
+  position: relative;
+  outline: none;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  text-transform: uppercase;
+  align-items: center;
+  cursor: pointer;
+  height: 45px;
+  width: 130px;
+  opacity: 1;
+}
+.buttonDelete {
+  position: relative;
+  outline: none;
+  text-decoration: none;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  text-transform: uppercase;
+  height: 45px;
+  width: 130px;
+  opacity: 1;
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.6);
+}

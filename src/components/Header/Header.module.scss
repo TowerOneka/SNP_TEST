@@ -1,0 +1,23 @@
+.container {
+  background-color: #fff;
+  padding-top: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border-bottom: 1px solid #000;
+}
+.logoImg {
+  height: 50px;
+}
+.links {
+  display: flex;
+  flex-basis: 30%;
+  justify-content: space-around;
+  .link {
+    padding: 10px;
+  }
+  .signupLink {
+    border: 1px solid #000;
+    border-radius: 25px;
+  }
+}
