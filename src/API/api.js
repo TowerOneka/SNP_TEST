@@ -14,8 +14,15 @@ export const api = {
       return response;
     });
   },
-  signup(params) {
-    return instanse.post("singup", params).then((response) => {
+  signup(formParams) {
+    console.log(formParams);
+    let params = {
+      username: formParams.login,
+      password: formParams.password,
+      password_confirmation: formParams.comfirmPassword,
+      is_admin: formParams.isAdmin
+    }
+    return instanse.post("signup", params).then((response) => {
       return response;
     });
   },

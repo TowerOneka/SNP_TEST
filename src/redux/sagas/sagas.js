@@ -3,13 +3,16 @@ import { takeEvery, spawn, put, call } from "redux-saga/effects";
 
 function* logIn(params) {
   try {
-    const request = yield call(api.signin, params);
-  } catch (e) {}
+    const request = yield call(api.signin, params.payload);
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 function* signUp(params){
   try{
-    const request = yield call(api.signup, params);
+    console.log(params)
+    const request = yield call(api.signup, params.payload);
     console.log(request);
   } catch(e){
     console.log(e)

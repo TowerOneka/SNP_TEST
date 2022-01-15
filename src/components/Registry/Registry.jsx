@@ -15,10 +15,18 @@ const Registry = (props) => {
   let handleChangeConfirmPassword = (e) => {
     setConfirmPassword(e.target.value);
   };
+  let [isAdmin, setIsAdmin] = useState(false);
+  let handleIsAdminCheckbox = (e) => {
+    setIsAdmin(!isAdmin);
+  };
+  let handleSubmitForm = (e) => {
+    e.preventDefault();
+    props.handleSubmitSignUp(login, password, confirmPassword, isAdmin);
+  };
 
   return (
     <div className={style.registryContainer}>
-      <form className={style.registryForm}>
+      <form className={style.registryForm} onSubmit={handleSubmitForm}>
         <h1>Sing up to the system</h1>
         <label htmlFor="login">Enter your login</label>
         <input
@@ -28,6 +36,7 @@ const Registry = (props) => {
           value={login}
           onChange={handleChangeLogin}
           className={style.registryInput}
+          required
         />
         <label htmlFor="registryPassword">Enter your password</label>
         <input
@@ -37,6 +46,7 @@ const Registry = (props) => {
           value={password}
           onChange={handleChangePassword}
           className={style.registryPassword}
+          required
         />
         <label htmlFor="confirmPassword">Confirm your password</label>
         <input
@@ -46,18 +56,21 @@ const Registry = (props) => {
           value={confirmPassword}
           onChange={handleChangeConfirmPassword}
           className={style.registryPassword}
+          required
         />
         <div className={style.adminCheckbox}>
-          <input type="checkbox" name="isAdminCheckbox" id="isAdminCheckbox" />
+          <input
+            type="checkbox"
+            name="isAdminCheckbox"
+            id="isAdminCheckbox"
+            value={isAdmin}
+            onChange={handleIsAdminCheckbox}
+          />
           <label htmlFor="isAdminCheckbox">Admin</label>
         </div>
 
         <Link to="/login">Log in</Link>
-        <button
-          type="submit"
-          onSubmit={props.submitSignUp}
-          className={style.registryButton}
-        >
+        <button type="submit" className={style.registryButton}>
           Sign up
         </button>
       </form>

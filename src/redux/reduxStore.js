@@ -20,6 +20,7 @@ let store = createStore(
   reducers,
   applyMiddleware(sagaMiddleware, routerMiddleware(history))
 );
+sagaMiddleware.run(rootSaga)
 
 window.store = store;
 
