@@ -1,6 +1,7 @@
 import React, { useCallback } from "react";
 import Registry from "./Registry/Registry";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { selectAuthError } from "../redux/selectors/authSelector";
 
 const RegistryContainer = () => {
   const dispatch = useDispatch();

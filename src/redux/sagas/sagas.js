@@ -1,13 +1,13 @@
 import { api } from "./../../API/api";
 import { takeEvery, spawn, put, call } from "redux-saga/effects";
-import { LOGIN, LOGOUT } from "../reducers/authReducer";
+import { LOGIN, LOGIN_ERROR, LOGOUT } from "../reducers/authReducer";
 
 function* logIn(params) {
   try {
     const request = yield call(api.signin, params.payload);
     yield put({type: LOGIN, payload: request})
   } catch (e) {
-    console.log(e);
+    yield put({type: LOGIN_ERROR, payload: e.response.data.error});
   }
 }
 

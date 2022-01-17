@@ -19,6 +19,7 @@ const Login = (props) => {
     <div className={style.loginContainer}>
       <form className={style.loginForm} onSubmit={handleSubmitForm}>
         <h1>Log in to the system</h1>
+        {props.error ? <p className={style.error}>{props.error}</p> : <p></p>}
         <label htmlFor="login">Enter your login</label>
         <input
           type="text"

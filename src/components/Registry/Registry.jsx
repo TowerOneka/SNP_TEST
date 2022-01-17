@@ -8,6 +8,7 @@ const Registry = (props) => {
     setLogin(e.target.value);
   };
   let [password, setPassword] = useState("");
+  console.log(password);
   let handleChangePassword = (e) => {
     setPassword(e.target.value);
   };
@@ -48,6 +49,13 @@ const Registry = (props) => {
           className={style.registryPassword}
           required
         />
+        {password.length < 6 && password ? (
+          <p className={style.error}>
+            Password too short (Minimum 6 characters)
+          </p>
+        ) : (
+          <p></p>
+        )}
         <label htmlFor="confirmPassword">Confirm your password</label>
         <input
           type="password"
@@ -70,7 +78,11 @@ const Registry = (props) => {
         </div>
 
         <Link to="/login">Log in</Link>
-        <button type="submit" className={style.registryButton}>
+        <button
+          type="submit"
+          className={style.registryButton}
+          disabled={password.length < 6 && password ? true : false}
+        >
           Sign up
         </button>
       </form>
