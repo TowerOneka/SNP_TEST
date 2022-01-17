@@ -5,21 +5,24 @@ const TestEdit = () => {
   return (
     <div className={style.container}>
       <div className={style.testName}>
-        <label htmlFor='TestName' className={style.testNameLabel}>
+        <label htmlFor="TestName" className={style.testNameLabel}>
           Test Name
         </label>
         <input
-          type='text'
-          name='TestName'
-          id='TestName'
+          type="text"
+          name="TestName"
+          id="TestName"
           className={style.testNameInput}
           required
         />
+        <div className={style.addButton}>
+          <button className="white_button">Add question</button>
+        </div>
       </div>
-      <div className={style.testBody}></div>
+      <ul className={style.testBody}></ul>
       <div className={style.testButtons}>
-        <button className={style.buttonSave}>Save</button>
-        <button className={style.buttonDelete}>Delete</button>
+        <button className="black_button">Save</button>
+        <button className="white_button">Delete</button>
       </div>
     </div>
   );
