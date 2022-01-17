@@ -1,14 +1,19 @@
 import React, { useCallback } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { openClose } from "../redux/reducers/modalReducer";
+import { selectIsAuth, selectUserName } from "../redux/selectors/authSelector";
 import Header from "./Header";
 
 const HeaderContainer = () => {
+  const isAuth = useSelector(selectIsAuth);
+  const username = useSelector(selectUserName);
   const dispatch = useDispatch();
-  let handleOpenClose = useCallback(() => {
-    dispatch(openClose());
+  let handleSignOut = useCallback(() => {
+    dispatch({ type: "LOG_OUT" });
   }, [dispatch]);
-  return <Header handleOpenClose={handleOpenClose} />;
+  return (
+    <Header handleSignOut={handleSignOut} isAuth={isAuth} username={username} />
+  );
 };
 
 export default HeaderContainer;

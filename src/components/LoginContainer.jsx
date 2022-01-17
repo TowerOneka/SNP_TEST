@@ -6,10 +6,10 @@ const LoginContainer = () => {
   const dispatch = useDispatch();
 
   const handleSubmitSignIn = useCallback(
-    (login, password) => {
+    (username, password) => {
       dispatch({
         type: "LOG_IN",
-        payload: { login, password },
+        payload: { username, password },
       });
     },
     [dispatch]

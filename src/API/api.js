@@ -10,30 +10,24 @@ const instanse = axios.create({
 
 export const api = {
   signin(params) {
+    console.log(params)
     return instanse.post("signin", params).then((response) => {
-      return response;
+      return response.data;
     });
   },
-  signup(formParams) {
-    console.log(formParams);
-    let params = {
-      username: formParams.login,
-      password: formParams.password,
-      password_confirmation: formParams.comfirmPassword,
-      is_admin: formParams.isAdmin
-    }
+  signup(params) {
     return instanse.post("signup", params).then((response) => {
-      return response;
+      return response.data;
     });
   },
   getCurrentUser() {
     return instanse.get("users/current").then((response) => {
-      return response;
+      return response.data;
     });
   },
   logout() {
     return instanse.delete("logout").then((response) => {
-      return response;
+      return response.data;
     });
   },
 };

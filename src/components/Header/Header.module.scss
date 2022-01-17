@@ -21,3 +21,19 @@
     border-radius: 25px;
   }
 }
+.profileInfo {
+  display: flex;
+  flex-basis: 30%;
+  justify-content: space-around;
+  .profileUsername {
+    color: #000;
+    cursor: pointer;
+    padding: 10px;
+  }
+  .logoutLink {
+    color: #000;
+    cursor: pointer;
+    padding: 10px;
+    font-weight: bold;
+  }
+}

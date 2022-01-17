@@ -6,10 +6,10 @@ const RegistryContainer = () => {
   const dispatch = useDispatch();
 
   const handleSubmitSignUp = useCallback(
-    (login, password, comfirmPassword, isAdmin) => {
+    (username, password, password_confirmation, is_admin) => {
       dispatch({
         type: "SIGN_UP",
-        payload: { login, password, comfirmPassword, isAdmin },
+        payload: { username, password, password_confirmation, is_admin },
       });
     },
     [dispatch]
