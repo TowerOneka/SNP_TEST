@@ -6,7 +6,6 @@ import { LOCATION_CHANGE, push } from "connected-react-router";
 function* logIn(params) {
   try {
     const request = yield call(authApi.signin, params.payload);
-    console.log("Запрос на авторизацию успешно");
     yield put({ type: LOGIN, payload: request });
     yield put(push("/"));
   } catch (e) {
@@ -30,10 +29,8 @@ function* signUp(params) {
 function* getCurrent() {
   try {
     const request = yield call(authApi.getCurrentUser);
-    console.log(request);
-  } catch (e) {
-    console.log(e);
-  }
+    yield put({ type: LOGIN, payload: request });
+  } catch (e) {}
 }
 function* logOut() {
   try {

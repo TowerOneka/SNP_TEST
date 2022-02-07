@@ -48,11 +48,83 @@ export const testApi = {
       return response.data;
     });
   },
-  createQuestion(test_id, params) {
+  editTest(params) {
+    console.log(params.title);
     return instanse
-      .post(`tests/${test_id}/questions`, params)
+      .patch(`tests/${params.id}/`, { title: params.title })
       .then((response) => {
         return response.data;
       });
+  },
+  deleteTest(params) {
+    return instanse.delete(`tests/${params}/`).then((response) => {
+      return response.data;
+    });
+  },
+  getCurrentTest(params) {
+    return instanse.get(`tests/${params}/`).then((response) => {
+      return response.data;
+    });
+  },
+  createQuestion(params) {
+    const question = {
+      title: params.title,
+      question_type: params.question_type,
+      answer: params.answer,
+    };
+    return instanse
+      .post(`tests/${params.test_id}/questions`, question)
+      .then((response) => {
+        return response.data;
+      });
+  },
+  deleteQuestion(params) {
+    return instanse.delete(`questions/${params.id}`).then((response) => {
+      return response.data;
+    });
+  },
+  editQuestion(params) {
+    const question = {
+      title: params.title,
+      question_type: params.question_type,
+      answer: params.answer,
+    };
+    return instanse
+      .patch(`questions/${params.question_id}`, question)
+      .then((response) => {
+        return response.data;
+      });
+  },
+  createAnswer(params) {
+    const answer = {
+      text: params.text,
+      is_right: params.is_right,
+    };
+    return instanse
+      .post(`/questions/${params.question_id}/answers`, answer)
+      .then((response) => {
+        return response.data;
+      });
+  },
+  editAnswer(params) {
+    const answer = {
+      text: params.text,
+      is_right: params.is_right,
+    };
+    return instanse.patch(`/answers/${params.id}`, answer).then((response) => {
+      return response.data;
+    });
+  },
+  moveAnswer(params) {
+    return instanse
+      .patch(`/answers/${params.answer_id}/insert_at/${params.position}`)
+      .then((response) => {
+        return response.data;
+      });
+  },
+  deleteAnswer(params) {
+    return instanse.delete(`/answers/${params.id}`).then((response) => {
+      return response.data;
+    });
   },
 };

@@ -12,3 +12,14 @@
   text-decoration: underline;
   cursor: pointer;
 }
+.testList {
+  padding: 20px;
+}
+.testHeader {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+.testInput {
+  flex-grow: 1;
+}

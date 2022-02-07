@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect } from "react";
-import s from "./Modal.module.scss";
-import ModalCreate from "./ModalCreate/ModalCreate";
+import ModalAccept from "./ModalAccept";
 
 const Modal = (props) => {
   useEffect(() => {
@@ -16,8 +15,12 @@ const Modal = (props) => {
       }
     }
   });
+  let modals = {
+    accept: ModalAccept,
+  };
 
   if (!props.visible) return null;
+  return modals[props.modalType](props);
 };
 
 export default React.memo(Modal);

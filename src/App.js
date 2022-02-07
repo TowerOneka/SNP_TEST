@@ -6,22 +6,25 @@ import HeaderContainer from "./components/HeaderContainer";
 import TestMainPageContainer from "./components/TestMainPageContainer";
 import ModalContainer from "./components/ModalContainer";
 import RegistryContainer from "./components/RegistryContainer";
+import { useDispatch } from "react-redux";
 
 let App = () => {
+  const dispatch = useDispatch();
+  dispatch({ type: "GET_CURRENT_USER" });
   return (
     <div className={style.container}>
       <HeaderContainer />
       <Switch>
-        <Route path="/login" exact>
+        <Route path='/login' exact>
           <LoginContainer />
         </Route>
-        <Route path="/testedit">
+        <Route path='/testedit/:testId'>
           <TestEditContainer />
         </Route>
-        <Route path="/registry">
+        <Route path='/registry'>
           <RegistryContainer />
         </Route>
-        <Route path="/">
+        <Route path='/'>
           <TestMainPageContainer />
         </Route>
       </Switch>
