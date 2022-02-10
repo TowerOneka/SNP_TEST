@@ -8,8 +8,8 @@ const ModalAccept = (props) => {
   };
 
   return (
-    <div className={s.modal}>
-      <div className={s.modalDialog}>
+    <div className={s.modal} onClick={props.handleOpenClose}>
+      <div className={s.modalDialog} onClick={(e) => e.stopPropagation()}>
         <div className={s.modalHeader}>
           <p className={s.modalTitle}>
             Do you want to {props.deleteBool ? "delete" : "save"}?
@@ -20,10 +20,10 @@ const ModalAccept = (props) => {
         </div>
         <div className={s.modalContent}>
           <div className={style.acceptButtons}>
-            <button className='black_button' onClick={handleOkButton}>
+            <button className="black_button" onClick={handleOkButton}>
               Ok
             </button>
-            <button className='white_button' onClick={props.handleOpenClose}>
+            <button className="white_button" onClick={props.handleOpenClose}>
               Cancel
             </button>
           </div>

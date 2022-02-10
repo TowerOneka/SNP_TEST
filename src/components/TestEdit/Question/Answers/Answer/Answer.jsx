@@ -37,10 +37,11 @@ const Answer = (props) => {
           ref={provided.innerRef}
           className={style.addAnswer}
           {...provided.draggableProps}
-          {...provided.dragHandleProps}>
-          <input type='text' value={text} onChange={handleTextChange} />
+          {...provided.dragHandleProps}
+        >
+          <input type="text" value={text} onChange={handleTextChange} />
           <input
-            type='checkbox'
+            type="checkbox"
             checked={is_right}
             onChange={handleChangeRightAnswer}
           />

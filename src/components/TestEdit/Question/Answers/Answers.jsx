@@ -66,10 +66,10 @@ const Answers = (props) => {
         )}
       </Droppable>
       <div className={style.addAnswer}>
-        <input type='text' value={text} onChange={handleTextChange} />
+        <input type="text" value={text} onChange={handleTextChange} />
         <input
-          type='checkbox'
-          id=''
+          type="checkbox"
+          id=""
           checked={right_answer}
           onChange={handleChangeRightAnswer}
         />

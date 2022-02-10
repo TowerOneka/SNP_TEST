@@ -61,7 +61,7 @@ const Question = (props) => {
         <img
           src={editImg}
           onClick={handleAddClick}
-          alt=''
+          alt=""
           className={style.questionImage}
         />
         <span className={style.questionDelete} onClick={handleOpenAcceptDelete}>
@@ -71,20 +71,20 @@ const Question = (props) => {
 
       {openQuestion ? (
         <form className={style.questionEdit}>
-          <label htmlFor='question_title'>Title</label>
+          <label htmlFor="question_title">Title</label>
           <input
-            type='text'
-            id='question_title'
+            type="text"
+            id="question_title"
             value={inputTitle}
             onChange={handleTitleInput}
           />
-          <label htmlFor=''>Type</label>
+          <label htmlFor="">Type</label>
           <select value={inputType} onChange={handleTypeInput}>
-            <option value='single'>Single</option>
-            <option value='multiple'>Multiple</option>
-            <option value='number'>Number</option>
+            <option value="single">Single</option>
+            <option value="multiple">Multiple</option>
+            <option value="number">Number</option>
           </select>
-          <label htmlFor='question_answer'>Answer</label>
+          <label htmlFor="question_answer">Answer</label>
           {inputType != "number" ? (
             <AnswersContainer
               type={inputType}
@@ -93,24 +93,32 @@ const Question = (props) => {
             />
           ) : (
             <input
-              type='text'
-              id='question_answer'
+              type="text"
+              id="question_answer"
               onChange={handleAnswerInput}
               value={inputAnswer}
             />
           )}
-
-          {inputType != "number" && props.answers.length >= 2 ? (
+          {inputType === "number" && inputAnswer && inputTitle ? (
             <div className={style.testButtons}>
-              <button className='black_button' onClick={handleSaveQuestion}>
+              <button className="black_button" onClick={handleSaveQuestion}>
                 Save
               </button>
-              <button className='white_button' onClick={handleCancelQuestion}>
+              <button className="white_button" onClick={handleCancelQuestion}>
+                Cancel
+              </button>
+            </div>
+          ) : inputType != "number" ? (
+            <div className={style.testButtons}>
+              <button className="black_button" onSubmit={handleSaveQuestion}>
+                Save
+              </button>
+              <button className="white_button" onClick={handleCancelQuestion}>
                 Cancel
               </button>
             </div>
           ) : (
-            <p>The question should have at least 2 answers</p>
+            <p>All fields must be required</p>
           )}
         </form>
       ) : (

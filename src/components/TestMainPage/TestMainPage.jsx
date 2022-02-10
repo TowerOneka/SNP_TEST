@@ -9,22 +9,22 @@ const TestMainPage = (props) => {
     <div className={style.container}>
       <div className={style.testHeader}>
         <input
-          type='text'
+          type="text"
           className={style.testInput}
           value={props.searchParams}
           onChange={props.handleChange}
         />
-        <button className='white_button' onClick={props.handleCreateTest}>
+        <button className="white_button" onClick={props.handleCreateTest}>
           CREATE TEST
         </button>
       </div>
       <div className={style.pages}>
-        <label htmlFor='sort'>Sort alphabetically</label>
+        <label htmlFor="sort">Sort alphabetically</label>
         <input
-          type='checkbox'
-          name='sorted'
+          type="checkbox"
+          name="sorted"
           checked={props.sort}
-          id='sort'
+          id="sort"
           onChange={props.handleChangeSort}
         />
         {props.pages.map((page, index) => (
@@ -35,7 +35,8 @@ const TestMainPage = (props) => {
             }
             onClick={(e) => {
               props.handleChangePage(page);
-            }}>
+            }}
+          >
             {page}
           </span>
         ))}
@@ -45,7 +46,7 @@ const TestMainPage = (props) => {
       ) : props.error ? (
         <p className={style.error}>
           {props.error}{" "}
-          <Link className={style.loginLink} to='/login'>
+          <Link className={style.loginLink} to="/login">
             Log in to the system
           </Link>
         </p>

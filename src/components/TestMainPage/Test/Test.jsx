@@ -9,7 +9,7 @@ const Test = (props) => {
       {props.title}
       {props.isAdmin ? (
         <Link to={"/testedit/" + props.id}>
-          <img className={style.editLink} src={editImg} alt='editing' />
+          <img className={style.editLink} src={editImg} alt="editing" />
         </Link>
       ) : (
         ""
