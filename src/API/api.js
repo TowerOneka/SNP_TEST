@@ -10,7 +10,6 @@ const instanse = axios.create({
 
 export const authApi = {
   signin(params) {
-    console.log(params);
     return instanse.post("signin", params).then((response) => {
       return response.data;
     });
@@ -32,16 +31,15 @@ export const authApi = {
   },
 };
 export const testApi = {
-  getTestList() {
-    const params = {
-      page: 1,
-      per: 5,
-      search: "",
-      sort: "created_at_desc",
-    };
-    return instanse.get("tests", params).then((response) => {
-      return response.data;
-    });
+  getTestList(params) {
+    const sort = "created_at_desc";
+    return instanse
+      .get(
+        `tests?search=${params.search}&per=5&sort=${params.sort}&page=${params.page}`
+      )
+      .then((response) => {
+        return response.data;
+      });
   },
   createTest(params) {
     return instanse.post("tests", params).then((response) => {
@@ -117,7 +115,7 @@ export const testApi = {
   },
   moveAnswer(params) {
     return instanse
-      .patch(`/answers/${params.answer_id}/insert_at/${params.position}`)
+      .patch(`/answers/${params.id}/insert_at/${params.position}`)
       .then((response) => {
         return response.data;
       });

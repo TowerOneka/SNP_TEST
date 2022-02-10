@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from "react";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import style from "./Answers.module.scss";
 import Answer from "./Answer";
 
@@ -27,18 +28,43 @@ const Answers = (props) => {
     setRight(!right_answer);
   }, [setRight]);
 
+  const onDragEnd = (result) => {
+    const { destination, source, draggableId } = result;
+
+    if (!destination) {
+      return;
+    }
+
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    ) {
+      return;
+    }
+
+    props.onDragEnd(draggableId, destination, source);
+  };
+
   return (
-    <>
-      {props.answers.map((answer) => (
-        <Answer
-          text={answer.text}
-          is_right={answer.is_right}
-          key={answer.id}
-          id={answer.id}
-          handleOpenAcceptSave={props.handleOpenAcceptSave}
-          handleOpenAcceptDelete={props.handleOpenAcceptDelete}
-        />
-      ))}
+    <DragDropContext onDragEnd={onDragEnd}>
+      <Droppable droppableId={String(props.question_id)}>
+        {(provided) => (
+          <div {...provided.droppableProps} ref={provided.innerRef}>
+            {props.answers.map((answer, index) => (
+              <Answer
+                text={answer.text}
+                is_right={answer.is_right}
+                key={answer.id}
+                id={answer.id}
+                index={index}
+                handleOpenAcceptSave={props.handleOpenAcceptSave}
+                handleOpenAcceptDelete={props.handleOpenAcceptDelete}
+              />
+            ))}
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>
       <div className={style.addAnswer}>
         <input type='text' value={text} onChange={handleTextChange} />
         <input
@@ -51,7 +77,7 @@ const Answers = (props) => {
           &#10003;
         </span>
       </div>
-    </>
+    </DragDropContext>
   );
 };
 

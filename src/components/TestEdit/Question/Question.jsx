@@ -100,14 +100,18 @@ const Question = (props) => {
             />
           )}
 
-          <div className={style.testButtons}>
-            <button className='black_button' onClick={handleSaveQuestion}>
-              Save
-            </button>
-            <button className='white_button' onClick={handleCancelQuestion}>
-              Cancel
-            </button>
-          </div>
+          {inputType != "number" && props.answers.length >= 2 ? (
+            <div className={style.testButtons}>
+              <button className='black_button' onClick={handleSaveQuestion}>
+                Save
+              </button>
+              <button className='white_button' onClick={handleCancelQuestion}>
+                Cancel
+              </button>
+            </div>
+          ) : (
+            <p>The question should have at least 2 answers</p>
+          )}
         </form>
       ) : (
         ""

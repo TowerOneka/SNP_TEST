@@ -37,6 +37,10 @@ const AnswersContainer = (props) => {
     [dispatch]
   );
 
+  const onDragEnd = useCallback((id, position, source) => {
+    dispatch({ type: "MOVE_ANSWER", id, position, source });
+  });
+
   const addAnswer = useCallback(
     (text, is_right) => {
       dispatch({
@@ -54,8 +58,10 @@ const AnswersContainer = (props) => {
       type={props.type}
       answers={props.answers}
       addAnswer={addAnswer}
+      question_id={props.question_id}
       handleOpenAcceptSave={handleOpenAcceptSave}
       handleOpenAcceptDelete={handleOpenAcceptDelete}
+      onDragEnd={onDragEnd}
     />
   );
 };

@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 
 const initialState = {
   error: "",
@@ -7,6 +7,9 @@ const initialState = {
   currentTest: {
     questions: [],
   },
+  currentPage: 1,
+  total_count: 0,
+  total_pages: 2,
 };
 
 const testSlice = createSlice({
@@ -16,6 +19,13 @@ const testSlice = createSlice({
     LOAD_TEST_LIST: (state, action) => {
       state.testList = action.payload;
       state.error = "";
+    },
+    SET_TOTAL: (state, action) => {
+      state.total_count = action.payload.total_count;
+      state.total_pages = action.payload.total_pages;
+    },
+    SET_CURRENT_PAGE: (state, action) => {
+      state.currentPage = Number(action.payload);
     },
     LOAD_TEST_LIST_ERROR: (state, action) => {
       state.error = action.payload;
@@ -66,19 +76,37 @@ const testSlice = createSlice({
       });
     },
     DELETE_ANSWER: (state, action) => {
-      state.currentTest.questions.forEach((item, index) => {
+      state.currentTest.questions.forEach((item) => {
         item.answers.forEach((answer, answer_index) => {
           if (answer.id === action.payload.id) {
-            state.currentTest.questions[index].answers.splice(answer_index, 1);
+            item.answers.splice(answer_index, 1);
           }
         });
       });
+    },
+    MOVE_ANSWER: (state, action) => {
+      console.log(action.payload);
+      let arrIndex = null;
+      state.currentTest.questions.forEach((item, index) => {
+        if (item.id === Number(action.payload.source.droppableId)) {
+          arrIndex = index;
+        }
+      });
+      console.log(arrIndex);
+      const result = Array.from(
+        current(state.currentTest.questions[arrIndex].answers)
+      );
+      const [removed] = result.splice(action.payload.source.index, 1);
+      result.splice(action.payload.position.index, 0, removed);
+      state.currentTest.questions[arrIndex].answers = result;
     },
   },
 });
 
 export const {
   LOAD_TEST_LIST,
+  SET_CURRENT_PAGE,
+  SET_TOTAL,
   LOAD_TEST_LIST_ERROR,
   EMPTY_ERROR,
   CHANGE_FETCHING,
@@ -89,6 +117,7 @@ export const {
   ADD_ANSWER,
   DELETE_ANSWER,
   EDIT_ANSWER,
+  MOVE_ANSWER,
 } = testSlice.actions;
 
 export default testSlice.reducer;

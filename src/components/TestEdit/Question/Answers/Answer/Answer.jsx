@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from "react";
+import { Draggable } from "react-beautiful-dnd";
 import style from ".././Answers.module.scss";
 
 const Answer = (props) => {
@@ -30,18 +31,26 @@ const Answer = (props) => {
   });
 
   return (
-    <div className={style.addAnswer}>
-      <input type='text' value={text} onChange={handleTextChange} />
-      <input
-        type='checkbox'
-        checked={is_right}
-        onChange={handleChangeRightAnswer}
-      />
-      <span onClick={handleClickSave}>&#10003;</span>
-      <span className={style.questionDelete} onClick={handleClickDelete}>
-        &times;
-      </span>
-    </div>
+    <Draggable draggableId={String(props.id)} index={props.index}>
+      {(provided) => (
+        <div
+          ref={provided.innerRef}
+          className={style.addAnswer}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}>
+          <input type='text' value={text} onChange={handleTextChange} />
+          <input
+            type='checkbox'
+            checked={is_right}
+            onChange={handleChangeRightAnswer}
+          />
+          <span onClick={handleClickSave}>&#10003;</span>
+          <span className={style.questionDelete} onClick={handleClickDelete}>
+            &times;
+          </span>
+        </div>
+      )}
+    </Draggable>
   );
 };
 

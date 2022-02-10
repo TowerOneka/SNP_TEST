@@ -1,6 +1,7 @@
 import { LOCATION_CHANGE, push } from "connected-react-router";
 import { all, call, fork, put, take, takeEvery } from "redux-saga/effects";
 import { testApi } from "../../API/api";
+import { useLocation } from "react-router-dom";
 import {
   EMPTY_ERROR,
   LOAD_TEST_LIST,
@@ -13,13 +14,18 @@ import {
   ADD_ANSWER,
   DELETE_ANSWER,
   EDIT_ANSWER,
+  MOVE_ANSWER,
+  SET_TOTAL,
+  SET_CURRENT_PAGE,
 } from "../reducers/testReducer";
 
-function* getTestList() {
+function* getTestList(params) {
   try {
     yield put({ type: CHANGE_FETCHING });
-    const request = yield call(testApi.getTestList);
+    const request = yield call(testApi.getTestList, params);
     yield put({ type: LOAD_TEST_LIST, payload: request.tests });
+    yield put({ type: SET_TOTAL, payload: request.meta });
+    yield put({ type: SET_CURRENT_PAGE, payload: params.page });
     yield put({ type: CHANGE_FETCHING });
   } catch (e) {
     yield put({ type: CHANGE_FETCHING });
@@ -30,6 +36,7 @@ function* createTest(params) {
   try {
     const request = yield call(testApi.createTest, params.payload);
     console.log(request);
+    yield put(push("/testedit/" + request.id));
   } catch (e) {}
 }
 
@@ -120,8 +127,24 @@ function* deleteAnswer(params) {
   }
 }
 
+function* moveAnswer(params) {
+  try {
+    yield put({ type: MOVE_ANSWER, payload: params });
+    const request = yield call(testApi.moveAnswer, {
+      id: params.id,
+      position: params.position.index,
+    });
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 function* watchDeleteAnswer() {
   yield takeEvery("DELETE_ANSWER", deleteAnswer);
+}
+
+function* watchMoveAnswer() {
+  yield takeEvery("MOVE_ANSWER", moveAnswer);
 }
 
 function* watchEditAnswer() {
@@ -134,10 +157,14 @@ function* watchAddAnswer() {
 
 function* watchGetTestList() {
   while (true) {
+    const queryString = require("query-string");
     const action = yield take(LOCATION_CHANGE);
+    const params = queryString.parse(action.payload.location.search);
     if (action.payload.location.pathname.endsWith("/")) {
       yield put({ type: EMPTY_ERROR });
-      yield fork(getTestList);
+      yield fork(getTestList, params);
+    } else if (action.payload.location.pathname.startsWith("/testedit/")) {
+      yield call(getTest, action.payload.location.pathname.substring(10));
     }
   }
 }
@@ -161,15 +188,6 @@ function* watchAddQuestion() {
 function* watchEditQuestion() {
   yield takeEvery("EDIT_QUESTION", editQuestion);
 }
-
-function* watchGetCurrentTest() {
-  while (true) {
-    const action = yield take(LOCATION_CHANGE);
-    if (action.payload.location.pathname.startsWith("/testedit/")) {
-      yield call(getTest, action.payload.location.pathname.substring(10));
-    }
-  }
-}
 function* watchCreateTest() {
   yield takeEvery("CREATE_TEST", createTest);
 }
@@ -178,7 +196,6 @@ export function* testSagas() {
   yield all([
     watchGetTestList(),
     watchCreateTest(),
-    watchGetCurrentTest(),
     watchAddQuestion(),
     watchEditQuestion(),
     watchDeleteQuestion(),
@@ -187,5 +204,6 @@ export function* testSagas() {
     watchAddAnswer(),
     watchEditAnswer(),
     watchDeleteAnswer(),
+    watchMoveAnswer(),
   ]);
 }
