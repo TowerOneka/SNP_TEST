@@ -9,11 +9,14 @@ let TestEditContainer = () => {
   const dispatch = useDispatch();
   const params = useParams();
 
+  const current_test = useSelector(selectCurrentTest);
+
   const [visible, setVisible] = useState(false);
 
   const openQuestion = () => {
     setVisible(true);
   };
+
   const closeQuestion = () => {
     setVisible(false);
   };
@@ -30,6 +33,7 @@ let TestEditContainer = () => {
     },
     [dispatch, params.testId]
   );
+
   const handleOpenAcceptSave = useCallback(
     (deleteType, id, title, question_type, answer) => {
       dispatch(
@@ -46,6 +50,7 @@ let TestEditContainer = () => {
     },
     [dispatch]
   );
+
   const handleOpenAcceptDelete = useCallback(
     (deleteType, id) => {
       dispatch(
@@ -59,7 +64,7 @@ let TestEditContainer = () => {
     },
     [dispatch]
   );
-  const current_test = useSelector(selectCurrentTest);
+
   return (
     <TestEdit
       test={current_test}

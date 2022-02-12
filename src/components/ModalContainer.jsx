@@ -11,12 +11,15 @@ import {
   selectVisible,
 } from "./../redux/selectors/modalSelector";
 import { useSelector } from "react-redux";
+import { selectFinishRights } from "./../redux/selectors/testListSelector";
 
 const ModalContainer = () => {
   const visible = useSelector(selectVisible);
   const modalType = useSelector(selectModalType);
   const deleteBool = useSelector(selectDelete);
   const information = useSelector(selectModalInfo);
+  const rights_count = useSelector(selectFinishRights);
+
   const dispatch = useDispatch();
 
   const handleOpenClose = useCallback(() => {
@@ -66,6 +69,7 @@ const ModalContainer = () => {
       visible={visible}
       modalType={modalType}
       deleteBool={deleteBool}
+      rights_count={rights_count}
       handleClickOk={handleClickOk}
     />
   );

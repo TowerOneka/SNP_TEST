@@ -1,11 +1,13 @@
 .qustionTitle {
   display: flex;
 }
+
 .questionImage {
   height: 20px;
   margin: 0 0 0 10px;
   cursor: pointer;
 }
+
 .questionDelete {
   color: #000;
   margin: 0 0 0 10px;
@@ -17,6 +19,7 @@
   display: flex;
   flex-direction: column;
 }
+
 .testButtons {
   display: flex;
   justify-content: space-around;

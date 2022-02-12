@@ -30,7 +30,9 @@ function* getCurrent() {
   try {
     const request = yield call(authApi.getCurrentUser);
     yield put({ type: LOGIN, payload: request });
-  } catch (e) {}
+  } catch (e) {
+    console.log(e);
+  }
 }
 function* logOut() {
   try {

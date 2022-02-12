@@ -1,11 +1,16 @@
 import React from "react";
 import Answers from "./TestEdit/Question/Answers/Answers";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { openClose } from "../redux/reducers/modalReducer";
 import { useCallback } from "react";
+import { selectRightAnswers } from "./../redux/selectors/testListSelector";
 
 const AnswersContainer = (props) => {
   const dispatch = useDispatch();
+
+  const rights_count = useSelector((state) =>
+    selectRightAnswers(state, props.question_id)
+  );
 
   const handleOpenAcceptDelete = useCallback(
     (id) => {
@@ -58,6 +63,7 @@ const AnswersContainer = (props) => {
       type={props.type}
       answers={props.answers}
       addAnswer={addAnswer}
+      rights_count={rights_count}
       question_id={props.question_id}
       handleOpenAcceptSave={handleOpenAcceptSave}
       handleOpenAcceptDelete={handleOpenAcceptDelete}

@@ -10,6 +10,7 @@ const initialState = {
   currentPage: 1,
   total_count: 0,
   total_pages: 2,
+  rights_count: 0,
 };
 
 const testSlice = createSlice({
@@ -85,7 +86,6 @@ const testSlice = createSlice({
       });
     },
     MOVE_ANSWER: (state, action) => {
-      console.log(action.payload);
       let arrIndex = null;
       state.currentTest.questions.forEach((item, index) => {
         if (item.id === Number(action.payload.source.droppableId)) {
@@ -99,6 +99,38 @@ const testSlice = createSlice({
       const [removed] = result.splice(action.payload.source.index, 1);
       result.splice(action.payload.position.index, 0, removed);
       state.currentTest.questions[arrIndex].answers = result;
+    },
+    ADD_USER_CHECK: (state, action) => {
+      console.log(action.payload);
+      let rights_count = 0;
+      action.payload.forEach((answer) => {
+        if (answer.type === "text") {
+          state.currentTest.questions.forEach((question) => {
+            if (
+              question.id === Number(answer.question_id) &&
+              question.answer === Number(answer.answer)
+            ) {
+              rights_count++;
+            }
+          });
+        } else {
+          state.currentTest.questions.forEach((question) => {
+            if (question.id === Number(answer.question_id)) {
+              question.answers.forEach((right_answer) => {
+                if (
+                  right_answer.id === Number(answer.id) &&
+                  right_answer.is_right === answer.answer &&
+                  answer.answer
+                ) {
+                  rights_count++;
+                }
+              });
+            }
+          });
+        }
+      });
+
+      state.rights_count = rights_count;
     },
   },
 });
@@ -118,6 +150,7 @@ export const {
   DELETE_ANSWER,
   EDIT_ANSWER,
   MOVE_ANSWER,
+  ADD_USER_CHECK,
 } = testSlice.actions;
 
 export default testSlice.reducer;

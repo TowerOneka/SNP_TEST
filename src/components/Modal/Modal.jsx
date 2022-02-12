@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect } from "react";
 import ModalAccept from "./ModalAccept";
+import ModalFinish from "./ModalFinish";
 
 const Modal = (props) => {
   useEffect(() => {
@@ -15,8 +16,9 @@ const Modal = (props) => {
       }
     }
   });
-  let modals = {
+  const modals = {
     accept: ModalAccept,
+    finish_test: ModalFinish,
   };
 
   if (!props.visible) return null;

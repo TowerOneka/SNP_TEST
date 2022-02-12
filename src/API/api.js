@@ -2,6 +2,7 @@ import * as axios from "axios";
 
 const instanse = axios.create({
   withCredentials: true,
+  /* baseURL: "https://snp.drankov.ru/api/v1/", */
   baseURL: "https://snp-tests.herokuapp.com/api/v1/",
   headers: {
     "scope-key": "jUnjhQ94GA3JNyHH",
@@ -30,9 +31,9 @@ export const authApi = {
     });
   },
 };
+
 export const testApi = {
   getTestList(params) {
-    const sort = "created_at_desc";
     return instanse
       .get(
         `tests?search=${params.search}&per=5&sort=${params.sort}&page=${params.page}`

@@ -108,7 +108,7 @@ const Question = (props) => {
                 Cancel
               </button>
             </div>
-          ) : inputType != "number" ? (
+          ) : inputType != "number" && props.answers.length > 2 ? (
             <div className={style.testButtons}>
               <button className="black_button" onSubmit={handleSaveQuestion}>
                 Save
@@ -118,7 +118,10 @@ const Question = (props) => {
               </button>
             </div>
           ) : (
-            <p>All fields must be required</p>
+            <p>
+              All fields must be required and the number of answers must be more
+              than two
+            </p>
           )}
         </form>
       ) : (

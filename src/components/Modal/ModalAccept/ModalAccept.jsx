@@ -20,10 +20,10 @@ const ModalAccept = (props) => {
         </div>
         <div className={s.modalContent}>
           <div className={style.acceptButtons}>
-            <button className="black_button" onClick={handleOkButton}>
+            <button className='black_button' onClick={handleOkButton}>
               Ok
             </button>
-            <button className="white_button" onClick={props.handleOpenClose}>
+            <button className='white_button' onClick={props.handleOpenClose}>
               Cancel
             </button>
           </div>

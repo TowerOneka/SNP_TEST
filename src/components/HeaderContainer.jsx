@@ -7,6 +7,7 @@ const HeaderContainer = () => {
   const isAuth = useSelector(selectIsAuth);
   const username = useSelector(selectUserName);
   const dispatch = useDispatch();
+
   const handleSignOut = useCallback(() => {
     dispatch({ type: "LOG_OUT" });
   }, [dispatch]);

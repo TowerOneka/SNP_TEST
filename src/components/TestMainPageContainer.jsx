@@ -26,22 +26,25 @@ const TestMainPageContainer = () => {
 
   useEffect(() => {
     const params = new URLSearchParams();
+
     if (searchParams) {
       params.append("search", searchParams);
     } else {
       params.append("search", "");
     }
+
     if (selectedPage) {
-      console.log(selectedPage);
       params.append("page", selectedPage);
     } else {
       params.delete("page");
     }
+
     if (sort) {
       params.append("sort", "created_at_asc");
     } else {
       params.append("sort", "created_at_desc");
     }
+
     history.push({ search: params.toString() });
   }, [searchParams, selectedPage, sort, history]);
 
@@ -51,9 +54,11 @@ const TestMainPageContainer = () => {
     },
     [setSearchParams]
   );
+
   const handleChangeSort = useCallback(() => {
     setSort(!sort);
   });
+
   const handleChangePage = useCallback(
     (page) => {
       setSelectedPage(page);

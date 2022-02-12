@@ -37,7 +37,9 @@ function* createTest(params) {
     const request = yield call(testApi.createTest, params.payload);
     console.log(request);
     yield put(push("/testedit/" + request.id));
-  } catch (e) {}
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 function* getTest(params) {
@@ -164,7 +166,9 @@ function* watchGetTestList() {
       yield put({ type: EMPTY_ERROR });
       yield fork(getTestList, params);
     } else if (action.payload.location.pathname.startsWith("/testedit/")) {
-      yield call(getTest, action.payload.location.pathname.substring(10));
+      yield fork(getTest, action.payload.location.pathname.substring(10));
+    } else if (action.payload.location.pathname.startsWith("/testpass/")) {
+      yield fork(getTest, action.payload.location.pathname.substring(10));
     }
   }
 }

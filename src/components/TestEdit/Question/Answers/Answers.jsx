@@ -26,7 +26,7 @@ const Answers = (props) => {
 
   const handleChangeRightAnswer = useCallback(() => {
     setRight(!right_answer);
-  }, [setRight]);
+  }, [setRight, right_answer]);
 
   const onDragEnd = (result) => {
     const { destination, source, draggableId } = result;
@@ -54,6 +54,8 @@ const Answers = (props) => {
               <Answer
                 text={answer.text}
                 is_right={answer.is_right}
+                rights_count={props.rights_count}
+                type={props.type}
                 key={answer.id}
                 id={answer.id}
                 index={index}
@@ -73,9 +75,20 @@ const Answers = (props) => {
           checked={right_answer}
           onChange={handleChangeRightAnswer}
         />
-        <span className={style.addButton} onClick={handleAddAnswer}>
-          &#10003;
-        </span>
+        {props.rights_count > 1 && props.type === "single" && right_answer ? (
+          <span>There should be only one answer</span>
+        ) : (
+          <span className={style.addButton} onClick={handleAddAnswer}>
+            &#10003;
+          </span>
+        )}
+      </div>
+      <div>
+        {props.rights_count === 0 ? (
+          <span>The correct answer must be specified</span>
+        ) : (
+          ""
+        )}
       </div>
     </DragDropContext>
   );

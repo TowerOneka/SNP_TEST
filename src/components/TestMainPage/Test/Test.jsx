@@ -6,7 +6,7 @@ import style from "./Test.module.scss";
 const Test = (props) => {
   return (
     <li className={style.test}>
-      {props.title}
+      <Link to={"/testpass/" + props.id}>{props.title}</Link>
       {props.isAdmin ? (
         <Link to={"/testedit/" + props.id}>
           <img className={style.editLink} src={editImg} alt="editing" />

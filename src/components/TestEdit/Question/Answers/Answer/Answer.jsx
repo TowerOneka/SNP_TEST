@@ -6,6 +6,8 @@ const Answer = (props) => {
   const [text, setText] = useState(props.text);
   const [is_right, setRight] = useState(props.is_right);
 
+  console.log(props.rights_count);
+
   const handleClickSave = useCallback((e) => {
     e.preventDefault();
     props.handleOpenAcceptSave(props.id, text, is_right);
@@ -28,7 +30,7 @@ const Answer = (props) => {
 
   const handleChangeRightAnswer = useCallback(() => {
     setRight(!is_right);
-  });
+  }, [setRight, is_right]);
 
   return (
     <Draggable draggableId={String(props.id)} index={props.index}>
@@ -45,7 +47,11 @@ const Answer = (props) => {
             checked={is_right}
             onChange={handleChangeRightAnswer}
           />
-          <span onClick={handleClickSave}>&#10003;</span>
+          {props.rights_count > 1 && props.type === "single" && is_right ? (
+            <span>There should be only one answer, save other answers</span>
+          ) : (
+            <span onClick={handleClickSave}>&#10003;</span>
+          )}
           <span className={style.questionDelete} onClick={handleClickDelete}>
             &times;
           </span>
