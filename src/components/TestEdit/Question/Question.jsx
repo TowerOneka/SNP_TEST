@@ -1,9 +1,11 @@
 import React, { useCallback, useState } from "react";
 import editImg from "./../../../assets/editing.png";
 import style from "./Question.module.scss";
-import Answers from "./Answers/Answers";
 import AnswersContainer from "../../AnswersContainer";
+import { useDispatch } from "react-redux";
 const Question = (props) => {
+  const dispatch = useDispatch();
+
   const [inputTitle, setTitle] = useState(props.title);
   const [inputAnswer, setAnswer] = useState(props.answer);
   const [inputType, setType] = useState(props.question_type);
@@ -54,6 +56,7 @@ const Question = (props) => {
   const handleAddClick = useCallback(() => {
     setOpenQuestion(true);
   }, [setOpenQuestion]);
+
   const handleOpenAcceptDelete = useCallback(() => {
     props.handleOpenAcceptDelete("QUESTION", props.id);
   }, [props.handleOpenAcceptDelete, props.id]);

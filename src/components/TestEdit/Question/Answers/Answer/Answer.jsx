@@ -6,7 +6,7 @@ const Answer = (props) => {
   const [text, setText] = useState(props.text);
   const [isRight, setRight] = useState(props.is_right);
 
-  console.log(props.rights_count);
+  console.log(props.rightsCount);
 
   const handleClickSave = useCallback((e) => {
     e.preventDefault();
@@ -46,11 +46,15 @@ const Answer = (props) => {
             checked={isRight}
             onChange={handleChangeRightAnswer}
           />
-          {props.rights_count === 1 &&
+          {props.rightsCount >= 1 &&
           props.type === "single" &&
           !isRight == props.is_right &&
           isRight ? (
             <span>There should be only one answer, save other answers</span>
+          ) : props.rightsCount <= 1 &&
+            !isRight &&
+            !isRight == props.is_right ? (
+            <span>There must be at least one correct answer</span>
           ) : (
             <span onClick={handleClickSave}>&#10003;</span>
           )}

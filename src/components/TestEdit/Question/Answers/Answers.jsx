@@ -54,7 +54,7 @@ const Answers = (props) => {
               <Answer
                 text={answer.text}
                 is_right={answer.is_right}
-                rights_count={props.rights_count}
+                rightsCount={props.rightsCount}
                 type={props.type}
                 key={answer.id}
                 id={answer.id}
@@ -75,19 +75,17 @@ const Answers = (props) => {
           checked={rightAnswer}
           onChange={handleChangeRightAnswer}
         />
-        {props.rights_count === 1 && props.type === "single" && rightAnswer ? (
+        {props.rightsCount >= 1 && props.type === "single" && rightAnswer ? (
           <span>There should be only one answer</span>
+        ) : props.rightsCount === 0 && !rightAnswer ? (
+          <span>
+            Please specify the correct answer here or in the already added
+            answers and save them
+          </span>
         ) : (
           <span className={style.addButton} onClick={handleAddAnswer}>
             &#10003;
           </span>
-        )}
-      </div>
-      <div>
-        {props.rights_count === 0 ? (
-          <span>The correct answer must be specified</span>
-        ) : (
-          ""
         )}
       </div>
     </DragDropContext>

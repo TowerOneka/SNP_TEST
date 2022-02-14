@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import style from "./TestEdit.module.scss";
 import Question from "./Question";
-import Answers from "./Question/Answers/Answers";
 import Fetcing from "../Fetching/Fetching";
 
 const TestEdit = (props) => {
@@ -10,10 +9,6 @@ const TestEdit = (props) => {
   const [inputType, setType] = useState("single");
   const [openQuestion, setOpenQuestion] = useState(false);
   const [testName, setTestName] = useState(props.test.title);
-
-  useEffect(() => {
-    setTestName(props.test.title);
-  }, [props.test.title]);
 
   const handleTitleInput = useCallback(
     (e) => {
@@ -48,17 +43,17 @@ const TestEdit = (props) => {
   );
 
   const handleCancelQuestion = useCallback(() => {
-    setType("Single");
+    setType("single");
     setTitle("");
-    setAnswer("");
+    setAnswer(0);
     setOpenQuestion(false);
   }, [setType, setTitle, setAnswer, setOpenQuestion]);
 
   const handleSaveQuestion = useCallback(() => {
     props.handleCreateQuestion(inputTitle, inputType, inputAnswer);
-    setType("Single");
+    setType("single");
     setTitle("");
-    setAnswer("");
+    setAnswer(0);
     setOpenQuestion(false);
   }, [
     setType,
@@ -128,14 +123,19 @@ const TestEdit = (props) => {
                 value={inputAnswer}
               />
             )}
-            <div className={style.testButtons}>
-              <button className='black_button' onClick={handleSaveQuestion}>
-                Save
-              </button>
-              <button className='white_button' onClick={handleCancelQuestion}>
-                Cancel
-              </button>
-            </div>
+            {(inputType === "number" && inputAnswer && inputTitle) ||
+            (inputType != "number" && inputTitle) ? (
+              <div className={style.testButtons}>
+                <button className='black_button' onClick={handleSaveQuestion}>
+                  Save
+                </button>
+                <button className='white_button' onClick={handleCancelQuestion}>
+                  Cancel
+                </button>
+              </div>
+            ) : (
+              <span>The form fields must be filled in</span>
+            )}
           </form>
         ) : (
           ""
