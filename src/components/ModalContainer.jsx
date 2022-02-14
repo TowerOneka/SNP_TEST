@@ -33,6 +33,7 @@ const ModalContainer = () => {
 
   const handleCreateTest = useCallback(() => {
     dispatch({ type: "CREATE_TEST", payload: { title: title } });
+    setTitle("");
     dispatch(openClose({ type: "accept" }));
   }, [dispatch, title]);
 

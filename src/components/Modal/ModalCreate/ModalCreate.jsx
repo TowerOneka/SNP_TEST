@@ -14,15 +14,20 @@ const ModalCreate = (props) => {
         </div>
         <div className={s.modalContent}>
           <input
-            type="text"
+            type='text'
             value={props.title}
             onChange={props.handleChangeTitle}
           />
           <div className={style.acceptButtons}>
-            <button className="black_button" onClick={props.handleCreateTest}>
-              Ok
-            </button>
-            <button className="white_button" onClick={props.handleOpenClose}>
+            {props.title ? (
+              <button className='black_button' onClick={props.handleCreateTest}>
+                Ok
+              </button>
+            ) : (
+              ""
+            )}
+
+            <button className='white_button' onClick={props.handleOpenClose}>
               Cancel
             </button>
           </div>
