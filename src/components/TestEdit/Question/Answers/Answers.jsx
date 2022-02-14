@@ -5,16 +5,16 @@ import Answer from "./Answer";
 
 const Answers = (props) => {
   const [text, setText] = useState("");
-  const [right_answer, setRight] = useState(false);
+  const [rightAnswer, setRight] = useState(false);
 
   const handleAddAnswer = useCallback(
     (e) => {
       e.preventDefault();
-      props.addAnswer(text, right_answer);
+      props.addAnswer(text, rightAnswer);
       setText("");
       setRight(false);
     },
-    [props.addAnswer, text, right_answer]
+    [props.addAnswer, text, rightAnswer]
   );
 
   const handleTextChange = useCallback(
@@ -25,8 +25,8 @@ const Answers = (props) => {
   );
 
   const handleChangeRightAnswer = useCallback(() => {
-    setRight(!right_answer);
-  }, [setRight, right_answer]);
+    setRight(!rightAnswer);
+  }, [setRight, rightAnswer]);
 
   const onDragEnd = (result) => {
     const { destination, source, draggableId } = result;
@@ -68,14 +68,14 @@ const Answers = (props) => {
         )}
       </Droppable>
       <div className={style.addAnswer}>
-        <input type="text" value={text} onChange={handleTextChange} />
+        <input type='text' value={text} onChange={handleTextChange} />
         <input
-          type="checkbox"
-          id=""
-          checked={right_answer}
+          type='checkbox'
+          id=''
+          checked={rightAnswer}
           onChange={handleChangeRightAnswer}
         />
-        {props.rights_count === 1 && props.type === "single" && right_answer ? (
+        {props.rights_count === 1 && props.type === "single" && rightAnswer ? (
           <span>There should be only one answer</span>
         ) : (
           <span className={style.addButton} onClick={handleAddAnswer}>

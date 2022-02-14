@@ -76,8 +76,10 @@ const ModalContainer = () => {
         id: information.id,
       });
     }
+
     dispatch(openClose({ type: "accept" }));
   }, [dispatch, information]);
+
   return (
     <Modal
       handleOpenClose={handleOpenClose}

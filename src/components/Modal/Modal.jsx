@@ -17,6 +17,7 @@ const Modal = (props) => {
       }
     }
   });
+
   const modals = {
     accept: ModalAccept,
     finish_test: ModalFinish,

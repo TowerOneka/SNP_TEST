@@ -4,13 +4,13 @@ import style from ".././Answers.module.scss";
 
 const Answer = (props) => {
   const [text, setText] = useState(props.text);
-  const [is_right, setRight] = useState(props.is_right);
+  const [isRight, setRight] = useState(props.is_right);
 
   console.log(props.rights_count);
 
   const handleClickSave = useCallback((e) => {
     e.preventDefault();
-    props.handleOpenAcceptSave(props.id, text, is_right);
+    props.handleOpenAcceptSave(props.id, text, isRight);
   });
 
   const handleClickDelete = useCallback(
@@ -29,8 +29,8 @@ const Answer = (props) => {
   );
 
   const handleChangeRightAnswer = useCallback(() => {
-    setRight(!is_right);
-  }, [setRight, is_right]);
+    setRight(!isRight);
+  }, [setRight, isRight]);
 
   return (
     <Draggable draggableId={String(props.id)} index={props.index}>
@@ -39,18 +39,17 @@ const Answer = (props) => {
           ref={provided.innerRef}
           className={style.addAnswer}
           {...provided.draggableProps}
-          {...provided.dragHandleProps}
-        >
-          <input type="text" value={text} onChange={handleTextChange} />
+          {...provided.dragHandleProps}>
+          <input type='text' value={text} onChange={handleTextChange} />
           <input
-            type="checkbox"
-            checked={is_right}
+            type='checkbox'
+            checked={isRight}
             onChange={handleChangeRightAnswer}
           />
           {props.rights_count === 1 &&
           props.type === "single" &&
-          !is_right == props.is_right &&
-          is_right ? (
+          !isRight == props.is_right &&
+          isRight ? (
             <span>There should be only one answer, save other answers</span>
           ) : (
             <span onClick={handleClickSave}>&#10003;</span>

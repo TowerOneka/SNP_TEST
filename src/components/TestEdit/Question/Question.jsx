@@ -29,30 +29,34 @@ const Question = (props) => {
     [setType]
   );
 
-  const handleCancelQuestion = () => {
+  const handleCancelQuestion = useCallback(() => {
     setType(props.question_type);
     setTitle(props.title);
     setAnswer(props.answer);
     setOpenQuestion(false);
-  };
-  const handleSaveQuestion = (e) => {
-    e.preventDefault();
-    props.handleOpenAcceptSave(
-      "QUESTION",
-      props.id,
-      inputTitle,
-      inputType,
-      inputAnswer
-    );
-    setOpenQuestion(false);
-  };
+  }, [setTitle, setType, setAnswer, setOpenQuestion]);
 
-  const handleAddClick = () => {
+  const handleSaveQuestion = useCallback(
+    (e) => {
+      e.preventDefault();
+      props.handleOpenAcceptSave(
+        "QUESTION",
+        props.id,
+        inputTitle,
+        inputType,
+        inputAnswer
+      );
+      setOpenQuestion(false);
+    },
+    [dispatch, props.id, inputTitle, inputType, inputAnswer, setOpenQuestion]
+  );
+
+  const handleAddClick = useCallback(() => {
     setOpenQuestion(true);
-  };
-  const handleOpenAcceptDelete = () => {
+  }, [setOpenQuestion]);
+  const handleOpenAcceptDelete = useCallback(() => {
     props.handleOpenAcceptDelete("QUESTION", props.id);
-  };
+  }, [props.handleOpenAcceptDelete, props.id]);
 
   return (
     <li className={style.questionItem}>
@@ -61,7 +65,7 @@ const Question = (props) => {
         <img
           src={editImg}
           onClick={handleAddClick}
-          alt=""
+          alt=''
           className={style.questionImage}
         />
         <span className={style.questionDelete} onClick={handleOpenAcceptDelete}>
@@ -71,20 +75,20 @@ const Question = (props) => {
 
       {openQuestion ? (
         <form className={style.questionEdit}>
-          <label htmlFor="question_title">Title</label>
+          <label htmlFor='question_title'>Title</label>
           <input
-            type="text"
-            id="question_title"
+            type='text'
+            id='question_title'
             value={inputTitle}
             onChange={handleTitleInput}
           />
-          <label htmlFor="">Type</label>
+          <label htmlFor=''>Type</label>
           <select value={inputType} onChange={handleTypeInput}>
-            <option value="single">Single</option>
-            <option value="multiple">Multiple</option>
-            <option value="number">Number</option>
+            <option value='single'>Single</option>
+            <option value='multiple'>Multiple</option>
+            <option value='number'>Number</option>
           </select>
-          <label htmlFor="question_answer">Answer</label>
+          <label htmlFor='question_answer'>Answer</label>
           {inputType != "number" ? (
             <AnswersContainer
               type={inputType}
@@ -93,27 +97,27 @@ const Question = (props) => {
             />
           ) : (
             <input
-              type="text"
-              id="question_answer"
+              type='text'
+              id='question_answer'
               onChange={handleAnswerInput}
               value={inputAnswer}
             />
           )}
           {inputType === "number" && inputAnswer && inputTitle ? (
             <div className={style.testButtons}>
-              <button className="black_button" onClick={handleSaveQuestion}>
+              <button className='black_button' onClick={handleSaveQuestion}>
                 Save
               </button>
-              <button className="white_button" onClick={handleCancelQuestion}>
+              <button className='white_button' onClick={handleCancelQuestion}>
                 Cancel
               </button>
             </div>
           ) : inputType != "number" && props.answers.length >= 2 ? (
             <div className={style.testButtons}>
-              <button className="black_button" onSubmit={handleSaveQuestion}>
+              <button className='black_button' onSubmit={handleSaveQuestion}>
                 Save
               </button>
-              <button className="white_button" onClick={handleCancelQuestion}>
+              <button className='white_button' onClick={handleCancelQuestion}>
                 Cancel
               </button>
             </div>

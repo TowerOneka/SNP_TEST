@@ -1,5 +1,4 @@
 import React, { useCallback, useState } from "react";
-
 import TestEdit from "./TestEdit/TestEdit";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,7 +7,8 @@ import {
   selectTestFetching,
 } from "../redux/selectors/testListSelector";
 import { openClose } from "../redux/reducers/modalReducer";
-let TestEditContainer = () => {
+
+const TestEditContainer = () => {
   const dispatch = useDispatch();
   const params = useParams();
 
@@ -17,13 +17,13 @@ let TestEditContainer = () => {
 
   const [visible, setVisible] = useState(false);
 
-  const openQuestion = () => {
+  const openQuestion = useCallback(() => {
     setVisible(true);
-  };
+  }, [setVisible]);
 
-  const closeQuestion = () => {
+  const closeQuestion = useCallback(() => {
     setVisible(false);
-  };
+  }, [setVisible]);
 
   const handleCreateQuestion = useCallback(
     (title, question_type, answer) => {

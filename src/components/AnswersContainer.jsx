@@ -8,7 +8,7 @@ import { selectRightAnswers } from "./../redux/selectors/testListSelector";
 const AnswersContainer = (props) => {
   const dispatch = useDispatch();
 
-  const rights_count = useSelector((state) =>
+  const rightsCount = useSelector((state) =>
     selectRightAnswers(state, props.question_id)
   );
 
@@ -27,7 +27,7 @@ const AnswersContainer = (props) => {
   );
 
   const handleOpenAcceptSave = useCallback(
-    (id, text, is_right) => {
+    (id, text, isRight) => {
       dispatch(
         openClose({
           type: "accept",
@@ -35,7 +35,7 @@ const AnswersContainer = (props) => {
           id: id,
           title: text,
           delete: false,
-          is_right: is_right,
+          is_right: isRight,
         })
       );
     },
@@ -63,7 +63,7 @@ const AnswersContainer = (props) => {
       type={props.type}
       answers={props.answers}
       addAnswer={addAnswer}
-      rights_count={rights_count}
+      rightsCount={rightsCount}
       question_id={props.question_id}
       handleOpenAcceptSave={handleOpenAcceptSave}
       handleOpenAcceptDelete={handleOpenAcceptDelete}

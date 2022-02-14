@@ -28,6 +28,7 @@ const TestEdit = (props) => {
     },
     [setAnswer]
   );
+
   const handleTypeInput = useCallback(
     (e) => {
       setType(e.target.value);
@@ -45,6 +46,7 @@ const TestEdit = (props) => {
     },
     [setTestName]
   );
+
   const handleCancelQuestion = useCallback(() => {
     setType("Single");
     setTitle("");
@@ -82,19 +84,19 @@ const TestEdit = (props) => {
   ) : (
     <div className={style.container}>
       <div className={style.testName}>
-        <label htmlFor="TestName" className={style.testNameLabel}>
+        <label htmlFor='TestName' className={style.testNameLabel}>
           Test Name
         </label>
         <input
-          type="text"
-          name="TestName"
-          id="TestName"
+          type='text'
+          name='TestName'
+          id='TestName'
           className={style.testNameInput}
           value={testName}
           onChange={handleChangeTitle}
         />
         <div className={style.addButton}>
-          <button className="white_button" onClick={handleAddClick}>
+          <button className='white_button' onClick={handleAddClick}>
             Add question
           </button>
         </div>
@@ -102,35 +104,35 @@ const TestEdit = (props) => {
       <ul className={style.testBody}>
         {openQuestion ? (
           <form className={style.questionEdit}>
-            <label htmlFor="question_title">Title</label>
+            <label htmlFor='question_title'>Title</label>
             <input
-              type="text"
-              id="question_title"
+              type='text'
+              id='question_title'
               value={inputTitle}
               onChange={handleTitleInput}
             />
-            <label htmlFor="">Type</label>
+            <label htmlFor=''>Type</label>
             <select value={inputType} onChange={handleTypeInput}>
-              <option value="single">Single</option>
-              <option value="multiple">Multiple</option>
-              <option value="number">Number</option>
+              <option value='single'>Single</option>
+              <option value='multiple'>Multiple</option>
+              <option value='number'>Number</option>
             </select>
-            <label htmlFor="question_answer">Answer</label>
+            <label htmlFor='question_answer'>Answer</label>
             {inputType != "number" ? (
               <p>Save test to edit single or multiple answers</p>
             ) : (
               <input
-                type="text"
-                id="question_answer"
+                type='text'
+                id='question_answer'
                 onChange={handleAnswerInput}
                 value={inputAnswer}
               />
             )}
             <div className={style.testButtons}>
-              <button className="black_button" onClick={handleSaveQuestion}>
+              <button className='black_button' onClick={handleSaveQuestion}>
                 Save
               </button>
-              <button className="white_button" onClick={handleCancelQuestion}>
+              <button className='white_button' onClick={handleCancelQuestion}>
                 Cancel
               </button>
             </div>
@@ -154,10 +156,10 @@ const TestEdit = (props) => {
         ))}
       </ul>
       <div className={style.testButtons}>
-        <button className="black_button" onClick={handleEditTest}>
+        <button className='black_button' onClick={handleEditTest}>
           Save
         </button>
-        <button className="white_button" onClick={handleOpenAcceptDelete}>
+        <button className='white_button' onClick={handleOpenAcceptDelete}>
           Delete
         </button>
       </div>
