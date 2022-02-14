@@ -3,13 +3,17 @@ import React, { useCallback, useState } from "react";
 import TestEdit from "./TestEdit/TestEdit";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { selectCurrentTest } from "../redux/selectors/testListSelector";
+import {
+  selectCurrentTest,
+  selectTestFetching,
+} from "../redux/selectors/testListSelector";
 import { openClose } from "../redux/reducers/modalReducer";
 let TestEditContainer = () => {
   const dispatch = useDispatch();
   const params = useParams();
 
   const current_test = useSelector(selectCurrentTest);
+  const isFetching = useSelector(selectTestFetching);
 
   const [visible, setVisible] = useState(false);
 
@@ -70,6 +74,7 @@ let TestEditContainer = () => {
       test={current_test}
       visible={visible}
       openQuestion={openQuestion}
+      isFetching={isFetching}
       closeQuestion={closeQuestion}
       handleCreateQuestion={handleCreateQuestion}
       handleOpenAcceptDelete={handleOpenAcceptDelete}

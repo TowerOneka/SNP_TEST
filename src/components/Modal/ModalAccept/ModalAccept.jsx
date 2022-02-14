@@ -3,10 +3,6 @@ import s from "./../Modal.module.scss";
 import style from "./ModalAccept.module.scss";
 
 const ModalAccept = (props) => {
-  const handleOkButton = () => {
-    props.handleClickOk();
-  };
-
   return (
     <div className={s.modal} onClick={props.handleOpenClose}>
       <div className={s.modalDialog} onClick={(e) => e.stopPropagation()}>
@@ -20,10 +16,10 @@ const ModalAccept = (props) => {
         </div>
         <div className={s.modalContent}>
           <div className={style.acceptButtons}>
-            <button className='black_button' onClick={handleOkButton}>
+            <button className="black_button" onClick={props.handleClickOk}>
               Ok
             </button>
-            <button className='white_button' onClick={props.handleOpenClose}>
+            <button className="white_button" onClick={props.handleOpenClose}>
               Cancel
             </button>
           </div>

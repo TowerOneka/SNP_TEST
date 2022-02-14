@@ -11,6 +11,7 @@ import {
 import { useDispatch } from "react-redux";
 import { selectIsAdmin } from "./../redux/selectors/authSelector";
 import { useLocation, useHistory } from "react-router-dom";
+import { openClose } from "../redux/reducers/modalReducer";
 
 const TestMainPageContainer = () => {
   const dispatch = useDispatch();
@@ -18,6 +19,8 @@ const TestMainPageContainer = () => {
   const testList = useSelector(selectTestList);
   const pagesCount = useSelector(selectPagesCount);
   const currentPage = useSelector(selectCurrentPage);
+  const error = useSelector(selectTestError);
+  const isFetching = useSelector(selectTestFetching);
 
   const [searchParams, setSearchParams] = useState("");
   const [selectedPage, setSelectedPage] = useState(currentPage);
@@ -73,11 +76,8 @@ const TestMainPageContainer = () => {
   }
 
   const handleCreateTest = useCallback(() => {
-    dispatch({ type: "CREATE_TEST", payload: { title: "empty" } });
+    dispatch(openClose({ type: "create" }));
   }, [dispatch]);
-
-  const error = useSelector(selectTestError);
-  const isFetching = useSelector(selectTestFetching);
 
   return (
     <TestMainPage

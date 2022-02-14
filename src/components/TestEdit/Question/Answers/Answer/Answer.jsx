@@ -47,7 +47,10 @@ const Answer = (props) => {
             checked={is_right}
             onChange={handleChangeRightAnswer}
           />
-          {props.rights_count > 1 && props.type === "single" && is_right ? (
+          {props.rights_count === 1 &&
+          props.type === "single" &&
+          !is_right == props.is_right &&
+          is_right ? (
             <span>There should be only one answer, save other answers</span>
           ) : (
             <span onClick={handleClickSave}>&#10003;</span>

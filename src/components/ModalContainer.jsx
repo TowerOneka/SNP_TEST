@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import { openClose } from "../redux/reducers/modalReducer";
 import Modal from "./Modal/Modal";
@@ -20,7 +20,21 @@ const ModalContainer = () => {
   const information = useSelector(selectModalInfo);
   const rights_count = useSelector(selectFinishRights);
 
+  const [title, setTitle] = useState("");
+
+  const handleChangeTitle = useCallback(
+    (e) => {
+      setTitle(e.target.value);
+    },
+    [setTitle]
+  );
+
   const dispatch = useDispatch();
+
+  const handleCreateTest = useCallback(() => {
+    dispatch({ type: "CREATE_TEST", payload: { title: title } });
+    dispatch(openClose({ type: "accept" }));
+  }, [dispatch, title]);
 
   const handleOpenClose = useCallback(() => {
     dispatch(openClose({ type: "accept" }));
@@ -68,6 +82,9 @@ const ModalContainer = () => {
       handleOpenClose={handleOpenClose}
       visible={visible}
       modalType={modalType}
+      title={title}
+      handleChangeTitle={handleChangeTitle}
+      handleCreateTest={handleCreateTest}
       deleteBool={deleteBool}
       rights_count={rights_count}
       handleClickOk={handleClickOk}

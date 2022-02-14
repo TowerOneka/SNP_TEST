@@ -108,7 +108,7 @@ const Question = (props) => {
                 Cancel
               </button>
             </div>
-          ) : inputType != "number" && props.answers.length > 2 ? (
+          ) : inputType != "number" && props.answers.length >= 2 ? (
             <div className={style.testButtons}>
               <button className="black_button" onSubmit={handleSaveQuestion}>
                 Save

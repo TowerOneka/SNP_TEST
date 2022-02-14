@@ -2,16 +2,17 @@ import * as axios from "axios";
 
 const instanse = axios.create({
   withCredentials: true,
-  /* baseURL: "https://snp.drankov.ru/api/v1/", */
-  baseURL: "https://snp-tests.herokuapp.com/api/v1/",
+  baseURL: "https://snp.drankov.ru/api/v1/",
   headers: {
     "scope-key": "jUnjhQ94GA3JNyHH",
+    token: "FDVfzVZhQYM7f8RcCV1gcXV5",
   },
 });
 
 export const authApi = {
   signin(params) {
     return instanse.post("signin", params).then((response) => {
+      /* instanse.headers.token = response.data.auth_token */
       return response.data;
     });
   },

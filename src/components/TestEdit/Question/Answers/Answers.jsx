@@ -75,7 +75,7 @@ const Answers = (props) => {
           checked={right_answer}
           onChange={handleChangeRightAnswer}
         />
-        {props.rights_count > 1 && props.type === "single" && right_answer ? (
+        {props.rights_count === 1 && props.type === "single" && right_answer ? (
           <span>There should be only one answer</span>
         ) : (
           <span className={style.addButton} onClick={handleAddAnswer}>

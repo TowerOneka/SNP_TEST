@@ -35,7 +35,6 @@ function* getTestList(params) {
 function* createTest(params) {
   try {
     const request = yield call(testApi.createTest, params.payload);
-    console.log(request);
     yield put(push("/testedit/" + request.id));
   } catch (e) {
     console.log(e);
@@ -44,10 +43,13 @@ function* createTest(params) {
 
 function* getTest(params) {
   try {
+    yield put({ type: CHANGE_FETCHING });
     const request = yield call(testApi.getCurrentTest, params);
     yield put({ type: GET_CURRENT_TEST, payload: request });
+    yield put({ type: CHANGE_FETCHING });
   } catch (e) {
     console.log(e);
+    yield put({ type: CHANGE_FETCHING });
   }
 }
 
