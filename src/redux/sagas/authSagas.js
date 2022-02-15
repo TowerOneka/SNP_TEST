@@ -38,6 +38,7 @@ function* logOut() {
   try {
     yield call(authApi.logout);
     yield put({ type: LOGOUT });
+    yield put(push("/login"));
   } catch (e) {
     console.log(e);
   }

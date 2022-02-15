@@ -1,18 +1,27 @@
 import * as axios from "axios";
+import Cookies from "universal-cookie";
+
+const authotization_token = new Cookies();
+
+let auth_token = authotization_token.get("auth_token");
+
+authotization_token.addChangeListener(() => {
+  auth_token = authotization_token.get("auth_token");
+});
 
 const instanse = axios.create({
   withCredentials: true,
   baseURL: "https://snp.drankov.ru/api/v1/",
   headers: {
     "scope-key": "jUnjhQ94GA3JNyHH",
-    token: "FDVfzVZhQYM7f8RcCV1gcXV5",
+    token: auth_token,
   },
 });
 
 export const authApi = {
   signin(params) {
     return instanse.post("signin", params).then((response) => {
-      /* instanse.headers.token = response.data.auth_token */
+      authotization_token.set("auth_token", response.data.auth_token);
       return response.data;
     });
   },
@@ -28,6 +37,7 @@ export const authApi = {
   },
   logout() {
     return instanse.delete("logout").then((response) => {
+      authotization_token.remove("auth_token");
       return response.data;
     });
   },
