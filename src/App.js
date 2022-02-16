@@ -7,8 +7,9 @@ import HeaderContainer from "./components/HeaderContainer";
 import TestMainPageContainer from "./components/TestMainPageContainer";
 import ModalContainer from "./components/ModalContainer";
 import RegistryContainer from "./components/RegistryContainer";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import TestPassContainer from "./components/TestPassContainer";
+import { selectIsAdmin } from "./redux/selectors/authSelector";
 
 let App = () => {
   const dispatch = useDispatch();
@@ -17,6 +18,8 @@ let App = () => {
     dispatch({ type: "GET_CURRENT_USER" });
   }, [dispatch]);
 
+  const isAdmin = useSelector(selectIsAdmin);
+
   return (
     <div className={style.container}>
       <HeaderContainer />
@@ -24,9 +27,14 @@ let App = () => {
         <Route path='/login' exact>
           <LoginContainer />
         </Route>
-        <Route path='/testedit/:testId'>
-          <TestEditContainer />
-        </Route>
+        {isAdmin ? (
+          <Route path='/testedit/:testId'>
+            <TestEditContainer />
+          </Route>
+        ) : (
+          ""
+        )}
+
         <Route path='/registry'>
           <RegistryContainer />
         </Route>
